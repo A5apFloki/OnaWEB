@@ -1,0 +1,16 @@
+{
+  "python.pythonPath": "~/venv/odoo15-venv/bin/python",
+  "python.autoComplete.extraPaths": [
+    "~/src/odoo/15.0/addons",
+    "~/src/odoo/15.0",
+    "~/src/odoo/15.0/odoo/addons",
+    "${workspaceRoot}/code"
+  ],
+  "python.formatting.provider": "autopep8",
+  "python.analysis.extraPaths": [
+    "~/src/odoo/15.0/addons",
+    "~/src/odoo/15.0",
+    "~/src/odoo/15.0/odoo/addons",
+    "${workspaceRoot}/code"
+  ]
+}
