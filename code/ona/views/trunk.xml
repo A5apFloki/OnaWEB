@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+   
+    <record id="ona_trunk_form" model="ir.ui.view">
+        <field name="name">ona.trunk.form</field>
+        <field name="model">ona.trunk</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="original_sewer_id" invisible="1"/>
+                            <field name="sewer_id"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="string">
+                             <label for="length" />
+                            <div class="o_row">
+                                <field name="length"/>
+                                <span>m</span>
+                            </div>
+                             <label for="diameter" />
+                            <div class="o_row">
+                                <field name="diameter"/>
+                                <span>cm</span>
+                            </div>
+                        </group>
+                        <group string="Water">
+                            <label for="depth" />
+                            <div class="o_row">
+                                <field name="depth"/>
+                                <span>m</span>
+                            </div>
+                            <field name="flow"/>
+                            <field name="fill_rate"/>
+                            <field name="hydrocarbons_presence"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="status" string="Status">
+                            <group>
+                                <group>
+                                    <group>
+                                        <field name="deregistration_obstacle"/>
+                                        <field name="deformation"/>
+                                        <field name="crack"/>
+                                        <field name="rupture"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="visible_reinforcement"/>
+                                        <field name="branch_penetrating"/>
+                                        <field name="sealing_gasket_appearing"/>
+                                        <field name="direction_change"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group>
+                                        <field name="longitudinal_dislocation"/>
+                                        <field name="vertical_dislocation"/>
+                                        <field name="transverse_dislocation"/>
+                                        <field name="infiltration"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="partial_collapse_perforation"/>
+                                        <field name="total_collapse"/>
+                                        <field name="degradation"/>
+                                        <field name="roots"/>
+                                    </group>
+                                </group>
+
+                            </group>
+                        </page>
+                        <page name="note" string="Note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                    
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

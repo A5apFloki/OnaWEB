@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ona_sewer,ona.sewer,model_ona_sewer,base.group_user,1,1,1,1
+access_ona_sewer_line,ona.sewer.line,model_ona_sewer_line,base.group_user,1,1,1,1
+access_ona_quick_diagnosis,ona.quick.diagnosis,model_ona_quick_diagnosis,base.group_user,1,1,1,1
+access_ona_trunk,ona.trunk,model_ona_trunk,base.group_user,1,1,1,1
+access_ona_drainage,ona.drainage,model_ona_drainage,base.group_user,1,1,1,1
+access_ona_drainage_line,ona.drainage.line,model_ona_drainage_line,base.group_user,1,1,1,1

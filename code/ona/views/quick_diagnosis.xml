@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- model.name search view -->
+    <record id="quick_diagnosis_view_search" model="ir.ui.view">
+        <field name="name">quick.diagnosis.search</field>
+        <field name="model">ona.quick.diagnosis</field>
+        <field name="arch" type="xml">
+            <search string="Search Description">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- model.name tree view -->
+    <record id="quick_diagnosis_view_tree" model="ir.ui.view">
+        <field name="name">quick.diagnosis.tree</field>
+        <field name="model">ona.quick.diagnosis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- model.name form view -->
+    <record id="quick_diagnosis_form" model="ir.ui.view">
+        <field name="name">quick.diagnosis.form</field>
+        <field name="model">ona.quick.diagnosis</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_get_trunk_ids" string="Get Trunks" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_confirm" string="Confirm" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_draft" string="Draft" type="object" states="cancel" />
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,close" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sewer_id"/>
+                            <field name="responsible"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Buffer">
+                            <field name="buffer_accessibility"/>
+                            <field name="buffer_condition"/>
+                            <label for="buffer_level" />
+                            <div class="o_row">
+                                <field name="buffer_level"/>
+                                <span>cm</span>
+                            </div>
+                        </group>
+                        <group string="Sewer">
+                            <field name="sewer_type"/>
+                            <field name="cunette"/>
+                            <field name="ladder"/>
+                            <field name="trunk_count"/>
+                            <field name="decantation"/>
+                            <field name="sewer_fill_rate"/>
+                            <field name="sewer_depth"/>
+                            <field name="sewer_deregistration_obstacle"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Environment">
+                            <field name="vehicle_accessibility"/>
+                            <field name="traffic_density"/>
+                            <field name="h2s_risk"/>
+                            <field name="road_condition"/>
+                            <field name="ground_nature"/>
+                        </group>
+                        <group string="Extra Information">
+                            <field name="weather"/>
+                            <field name="ivp_rating"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Trunks">
+                            <field name="trunk_ids">
+                                <tree create="0" delete="0">
+                                    <field name="sewer_id"/>
+                                    <field name="length"/>
+                                    <field name="diameter"/>
+                                    <field name="depth"/>
+                                    <field name="flow"/>
+                                    <field name="fill_rate"/>
+                                    <field name="hydrocarbons_presence"/>
+                                    <field name="deformation" optional="hide"/>
+                                    <field name="original_sewer_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="quick_diagnosis_action" model="ir.actions.act_window">
+        <field name="name">Quick Diagnosis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ona.quick.diagnosis</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ona_drainage_report" model="ir.actions.report">
+        <field name="name">Fiche de Suivie des Interventions</field>
+        <field name="model">ona.drainage</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ona.ona_drainage_template</field>
+        <field name="report_file">ona.ona_drainage_template</field>
+        <field name="print_report_name">'Fiche de Suivie des Interventions - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_ona_drainage"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_ona"/>
+    </record>
+
+    <template id="ona_drainage_template">
+        <t t-call="web.basic_layout">
+            <style>
+                .custom-card {
+                    border: 1px solid #000;
+                    text-align: -webkit-center;
+                    position: relative;
+                }
+                .custom-card > .custom-card-header {
+                    text-transform: uppercase;
+                    border-bottom: 1px solid #000;
+                    text-align: center;
+                    font-weight: bold;
+                    padding: 4px;
+                }
+                .custom-card > .custom-card-body {
+                    display: table-cell;
+                    text-align: center;
+                    height: 120px;
+                    vertical-align: middle;
+                }
+                .addresses-table {
+                    width: 100%;
+                    font-size: 15px;
+                }
+                .addresses-table th, .addresses-table td {
+                    border: 1px solid #000;
+                    padding: 4px;
+                    vertical-align: middle;
+                }
+                .addresses-table th {
+                    text-align: center;
+                }
+                .custom-checkbox {
+                    border: 1px solid #000;
+                    width: 30px;
+                    height: 30px;
+                    position: absolute;
+                    display: table-cell;
+                    text-align: center;
+                    background: #fff;
+                    bottom: 15%;
+                    right: 18%;
+                }
+                .custom-checkbox > i {
+                    vertical-align: middle;
+                }
+            </style>
+            <div class="page">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="not company">
+                        <!-- Multicompany -->
+                        <t t-if="company_id">
+                            <t t-set="company" t-value="company_id"/>
+                        </t>
+                        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                            <t t-set="company" t-value="o.company_id.sudo()"/>
+                        </t>
+                        <t t-else="else">
+                            <t t-set="company" t-value="res_company"/>
+                        </t>
+                    </t>
+
+                    <div class="header">
+                        <div class="text-center">
+                            <strong>الجمهورية الجزائرية الديموقراطية الشعبية</strong>
+                            <strong class="d-block">République Algérienne Démocratique et Populaire</strong>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-5">
+                                <strong>Ministère des Ressources en Eau<br />
+                                    Office National de l'Assainissement
+                                </strong>
+                            </div>
+                            <div class="col-2 mt-1">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="height:80px;"/>
+                            </div>
+                            <div class="col-5">
+                                <strong>وزارة المــــوارد المـــائــيــة<br />
+                                         الديــوان الـوطني لـلـتطهير
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-uppercase mb-5">
+                        <h4 class="font-weight-bold" style="font-size:20px">Fiche de Suivie des Interventions de Curage du Reseau d'Assainissement</h4>
+                        <h5 class="font-italic" style="font-size:18px">Curage Hydromécanique - Curage Manuel</h5>
+                    </div>
+
+                    <ul class="mb-4" style="font-size:18px">
+                        <li>
+                            <span class="d-inline mr-2">
+                                <span class="font-weight-bold">Référence de la fiche : </span>
+                                <span t-esc="o.name" />
+                            </span>
+                            <span>
+                                <span class="font-weight-bold">Date : </span>
+                                <span t-esc="o.date.strftime('%Y-%m-%d')" />
+                            </span>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold">Nom du chef d'équipe : </span>
+                            <span t-esc="o.responsible.name" />
+                        </li>
+                        <li>
+                            <span class="font-weight-bold">Immatriculation camion : </span>
+                            <span t-esc="o.truck_license_plate" />
+                        </li>
+                    </ul>
+
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <div class="custom-card">
+                                <div class="custom-card-header">Curage Hydromécanique</div>
+                                <div class="custom-card-body">
+                                    <img src="/ona/static/img/curage-hydromecanique.jpg" class="illustration_border" style="height:100px" />
+                                    <div class="custom-checkbox">
+                                        <i t-if="o.type == 'hydromechanical'" class="fa fa-fw fa-check" role="img"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="custom-card">
+                                <div class="custom-card-header">Curage Manuel</div>
+                                <div class="custom-card-body">
+                                    <img src="/ona/static/img/curage-manuel.jpg" class="illustration_border" style="height:100px" />
+                                    <div class="custom-checkbox">
+                                        <i t-if="o.type == 'manual'" class="fa fa-fw fa-check" role="img"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="custom-card">
+                                <div class="custom-card-header">Aspiration</div>
+                                <div class="custom-card-body">
+                                    <img src="/ona/static/img/aspiration.jpg" class="illustration_border" style="height:100px" />
+                                    <div class="custom-checkbox">
+                                        <i t-if="o.type == 'aspiration'" class="fa fa-fw fa-check" role="img"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="addresses-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="4">R<br />E<br />F</th>
+                                <th rowspan="4">
+                                    <span>Operations Programmes<br />
+                                            (عنوان التدخلات المبرمجة)
+                                    </span>
+                                </th>
+                                <th colspan="2">Realisé</th>
+                                <th>الأنبوب</th>
+                                <th>المشعب</th>
+                                <th>البالوعات</th>
+                                <th>المزراب</th>
+                                <th colspan="4">النفايات المستخرجة</th>
+                                <th>المياه الممتصة</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">Oui</th>
+                                <th rowspan="3">Non</th>
+                                <th>
+                                    <img src="/ona/static/img/aspiration.jpg" class="illustration_border" style="width:100%" />
+                                </th>
+                                <th>
+                                    <img src="/ona/static/img/regard.jpg" class="illustration_border" style="width:100%" />
+                                </th>
+                                <th>
+                                    <img src="/ona/static/img/avaloire.jpg" class="illustration_border" style="width:100%" />
+                                </th>
+                                <th>
+                                    <img src="/ona/static/img/caniveau.jpg" class="illustration_border" style="width:100%" />
+                                </th>
+                                <th colspan="4">
+                                    <img src="/ona/static/img/dechets.jpg" class="illustration_border" style="width:100%" />
+                                </th>
+                                <th>
+                                    <img src="/ona/static/img/camion-aspiration.jpg" class="illustration_border" style="width:100%" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">Reseaux<br />
+                                    ML
+                                </th>
+                                <th rowspan="2">Regards<br />
+                                    Nbre
+                                </th>
+                                <th rowspan="2">Avaloires<br />
+                                    Nbre
+                                </th>
+                                <th rowspan="2">Caniveaux<br />
+                                    ML
+                                </th>
+                                <th colspan="4">Dechets</th>
+                                <th rowspan="2">Aspiration<br />
+                                    M<sup>3</sup>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="width:4%">1/4</th>
+                                <th style="width:4%">1/2</th>
+                                <th style="width:4%">1/3</th>
+                                <th style="width:4%">1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1" />
+                            <t t-foreach="o.drainage_line_ids" t-as="line">
+                                <tr class="text-center">
+                                    <td>
+                                        <span t-esc="i" />
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-esc="line.address" />
+                                    </td>
+                                    <td>
+                                        <i t-if="line.state == 'accomplished'" class="fa fa-fw fa-check" role="img"></i>
+                                    </td>
+                                    <td>
+                                        <i t-if="line.state != 'accomplished'" class="fa fa-fw fa-check" role="img"></i>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.ml_pipes" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.nbr_sewers" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.nbr_drains" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.ml_channels" />
+                                    </td>
+                                    <td>
+                                        <i t-if="line.waste == '1/4'" class="fa fa-fw fa-check" role="img"></i>
+                                    </td>
+                                    <td>
+                                        <i t-if="line.waste == '1/2'" class="fa fa-fw fa-check" role="img"></i>
+                                    </td>
+                                    <td>
+                                        <i t-if="line.waste == '1/3'" class="fa fa-fw fa-check" role="img"></i>
+                                    </td>
+                                    <td>
+                                        <i t-if="line.waste == '1'" class="fa fa-fw fa-check" role="img"></i>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.mcube_aspiration" />
+                                    </td>
+                                </tr>
+                                <t t-set="i" t-value="i+1" />
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <record id="paperformat_ona" model="report.paperformat">
+        <field name="name">ONA</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">45</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+    </record>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Commune -->
+        <record id="view_commune_tree" model="ir.ui.view">
+            <field name="name">res.commune.tree</field>
+            <field name="model">res.commune</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Commune">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+	<record id="action_commune" model="ir.actions.act_window">
+            <field name="name">Communes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.commune</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+<!-- 
+    	<menuitem name="Commune" 
+                  id="menu_commune" 
+				  action="action_commune" 
+                  parent="hr.menu_hr_root" sequence="80"
+                  groups= "sales_team.group_sale_manager,account.group_account_manager,account.group_account_user"/>
+
+ -->         
+		<record id="res_partner_form_commune"  model="ir.ui.view">
+            <field name="name">res partner form commune</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+       	       <field name="country_id" position="replace"/>
+			   <xpath expr="//div[@class='o_address_format']" position="replace">
+			   <div class="o_address_format">
+                        <field name="street" placeholder="Street..." class="o_address_street"/>
+                        <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+						<field name="city" placeholder="City" style="width: 40%%"  invisible="1"/>
+						<field name="country_id" placeholder="Country" class="address_format" options='{"no_open": True, "no_create": True}'/>
+						<field name="commune_id" class="oe_no_button" placeholder="Commune" style="width: 37%%" options='{"no_open": True}' />
+						<field name="state_id" class="oe_no_button" placeholder="Wilaya" style="width: 37%%" options='{"no_open": True}' />
+						<field name="zip" placeholder="ZIP" style="width: 20%%"/>
+				</div>
+			</xpath>
+	   
+                   
+            </field>
+        </record>
+
+</odoo>

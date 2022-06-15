@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- model.name search view -->
+    <record id="drainage_view_search" model="ir.ui.view">
+        <field name="name">drainage.search</field>
+        <field name="model">ona.drainage</field>
+        <field name="arch" type="xml">
+            <search string="Search Description">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- model.name tree view -->
+    <record id="drainage_view_tree" model="ir.ui.view">
+        <field name="name">drainage.tree</field>
+        <field name="model">ona.drainage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- model.name form view -->
+    <record id="drainage_form" model="ir.ui.view">
+        <field name="name">drainage.form</field>
+        <field name="model">ona.drainage</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_draft" string="Draft" type="object" states="cancel" />
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,close" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" nolabel="1"/>
+                        </h1>
+                    </div>
+                    <field name="type" widget="radio" options="{'horizontal': 1}"/>
+
+                    <group>
+                        <group>
+                            <field name="responsible"/>
+                            <field name="truck_license_plate"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Addresses">
+                            <field name="drainage_line_ids">
+                                <tree>
+                                    <field name="address"/>
+                                    <field name="state" widget="badge" decoration-warning="state == 'unaccomplished'" decoration-success="state == 'accomplished'" decoration-danger="state == 'cancel'" />
+                                    <field name="ml_pipes"/>
+                                    <field name="nbr_sewers"/>
+                                    <field name="nbr_drains"/>
+                                    <field name="ml_channels"/>
+                                    <field name="waste"/>
+                                    <field name="mcube_aspiration"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="drainage_line_form" model="ir.ui.view">
+        <field name="name">drainage.line.form</field>
+        <field name="model">ona.drainage.line</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_unaccomplished" string="Unaccomplished" type="object" states="draft,accomplished,cancel" />
+                    <button name="action_accomplished" string="Accomplished" type="object" states="draft,unaccomplished,cancel" class="oe_highlight" />
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,unaccomplished,accomplished" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,unaccomplished,accomplished,cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <label for="ml_pipes" />
+                            <div class="o_row">
+                                <field name="ml_pipes"/>
+                                <span>ml</span>
+                            </div>
+                            <field name="nbr_sewers"/>
+                            <field name="nbr_drains"/>
+                        </group>
+                        <group>
+                            <label for="ml_channels" />
+                            <div class="o_row">
+                                <field name="ml_channels"/>
+                                <span>ml</span>
+                            </div>
+                            <field name="waste"/>
+                            <label for="mcube_aspiration" />
+                            <div class="o_row">
+                                <field name="mcube_aspiration"/>
+                                <span>
+                                    m<sup>3</sup>
+                                </span>
+                            </div>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="drainage_action" model="ir.actions.act_window">
+        <field name="name">Drainage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ona.drainage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

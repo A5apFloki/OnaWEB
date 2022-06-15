@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="ona_menu" name="Ona">
+        <menuitem id="sewer_menu_act" name="Sewer" action="sewer_action" sequence="10"/>
+        <menuitem id="quick_diagnosis_menu_act" name="Quick Diagnosis" action="quick_diagnosis_action" sequence="20"/>
+        <menuitem id="drainage_menu_act" name="Drainage" action="drainage_action" sequence="30"/>
+    </menuitem>
+</odoo>
