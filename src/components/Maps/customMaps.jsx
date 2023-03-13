@@ -5,7 +5,7 @@ import drain from "../../assets/icons/drain.png";
 
 const Marker = () => (
   <div>
-     <img src={drain} alt="Drain" />
+     <img style={{height: "30px",width:"30px",color:"blue"}}src={drain} alt="Drain" />
   </div>
 );
 
