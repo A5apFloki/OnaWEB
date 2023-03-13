@@ -1,10 +1,11 @@
 import GoogleMapReact from "google-map-react";
 import makeStyles from "@mui/styles/makeStyles";
 import Person from "@mui/icons-material/Person";
+import drain from "../../assets/icons/drain.png";
 
 const Marker = () => (
   <div>
-    <Person />
+    <drain />
   </div>
 );
 
