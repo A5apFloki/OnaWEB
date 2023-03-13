@@ -18,7 +18,7 @@ const genRandomTree = (N = 300, reverse = false) => {
 };
 
 const drawNodes = ({ x, y }, ctx) => {
-  const size = 15;
+  const size = 30;
   ctx.drawImage(drainImage, x - size / 2, y - size / 2, size, size);
 };
 
