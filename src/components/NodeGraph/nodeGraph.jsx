@@ -18,7 +18,7 @@ const genRandomTree = (N = 300, reverse = false) => {
 };
 
 const drawNodes = ({ x, y }, ctx) => {
-  const size = 30;
+  const size = 15;
   ctx.drawImage(drainImage, x - size / 2, y - size / 2, size, size);
 };
 
@@ -40,7 +40,7 @@ function NodeGraph() {
       ref={fd2dRef}
       // width={1920}
       // height={1080}
-      graphData={genRandomTree(20)}
+      graphData={genRandomTree(40)}
       nodeLabel="id"
       linkWidth={2}
       linkColor={linkColor}
